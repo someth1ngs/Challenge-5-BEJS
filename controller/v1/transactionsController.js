@@ -16,14 +16,14 @@ module.exports = {
 
       if (!sourceAccount || !destinationAccount) {
         return res.status(404).json({
-          true: false,
+          status: false,
           message: "Untuk pengirim atau penerima tidak valid",
         });
       }
 
       if (sourceAccount.balance < amount) {
         return res.status(400).json({
-          true: false,
+          status: false,
           message: "Saldo tidak mencukupi",
         });
       }
@@ -61,7 +61,7 @@ module.exports = {
           },
         },
       }),
-        res.status(200).json({
+        res.status(201).json({
           status: true,
           message: "Transfer Sukses",
           data: transferTransaction,

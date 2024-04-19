@@ -14,7 +14,7 @@ describe("Test method POST /api/v1/users endpoint", () => {
   let address = "Jalan Banyu Urip";
 
   beforeAll(async () => {
-    // await prisma.transaction.deleteMany();
+    await prisma.transaction.deleteMany();
     await prisma.bank_Account.deleteMany();
     await prisma.profile.deleteMany();
     await prisma.user.deleteMany();
@@ -99,6 +99,7 @@ describe("Test method GET /api/v1/users endpoint", () => {
   test("Index -> Sukses", async () => {
     try {
       let { statusCode, body } = await request(app).get("/api/v1/users");
+      
       expect(statusCode).toBe(200);
       expect(body).toHaveProperty("status");
       expect(body).toHaveProperty("message");

@@ -367,6 +367,34 @@ paths:
                       destination_account_id:
                         type: integer
                         example: 5
+        
+        400:
+          description: Saldo tidak mencukupi
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Saldo tidak mencukupi
+        
+        404:
+          description: Untuk pengirim atau penerima tidak valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Untuk pengirim atau penerima tidak valid
     
     get:
       tags:
@@ -454,7 +482,19 @@ paths:
                           user_id:
                             type: integer
                             example: 2
-
+        400:
+          description: Transaksi tidak ditemukan dengan id Transaksi
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Transaksi tidak ditemukan dengan id Transaksi
 
 components:  
   schemas:
