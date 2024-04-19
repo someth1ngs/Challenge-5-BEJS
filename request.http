@@ -1,0 +1,65 @@
+######### API Users ########
+
+### Post - menambahkan user baru beserta dengan profilnya.
+POST http://localhost:3000/api/v1/users
+Content-Type: application/json
+
+{
+    "name": "Kepin",
+    "email": "kepin@gmail.com",
+    "password": "kepin",
+    "identity_type": "SIM",
+    "identity_number": "0000000000000004",
+    "address": "Jalan Menuju Javascript"
+}
+
+### GET - menampilkan daftar users.
+GET http://localhost:3000/api/v1/users
+
+### GET - menampilkan detail informasi user (tampilkan juga profilnya).
+GET http://localhost:3000/api/v1/users/5
+
+############################
+
+
+####### API Accounts #######
+
+### POST - menambahkan akun baru ke user yang sudah didaftarkan.
+POST http://localhost:3000/api/v1/accounts
+Content-Type: application/json
+
+{
+    "bank_name": "Mandiri",
+    "bank_account_number": "91827364501",
+    "balance": 5000000,
+    "user_id": 5
+}
+
+### GET - menampilkan daftar akun.
+GET http://localhost:3000/api/v1/accounts
+
+### GET - menampilkan detail akun.
+GET http://localhost:3000/api/v1/accounts/6
+
+############################
+
+
+##### API Transactions #####
+
+### POST - mengirimkan uang dari 1 akun ke akun lain (tentukan request body nya).
+POST http://localhost:3000/api/v1/transactions
+Content-Type: application/json
+
+{
+  "source_account_id": 6,
+  "destination_account_id": 5,
+  "amount": 100000
+}
+
+### GET - menampilkan daftar transaksi.
+GET http://localhost:3000/api/v1/transactions
+
+### GET - menampilkan detail transaksi (tampilkan juga pengirim dan penerimanya).
+GET http://localhost:3000/api/v1/transactions/13
+
+############################
