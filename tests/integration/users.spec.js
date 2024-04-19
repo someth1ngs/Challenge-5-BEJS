@@ -30,6 +30,7 @@ describe("Test method POST /api/v1/users endpoint", () => {
         identity_number,
         address,
       });
+
       user = body.data;
 
       expect(statusCode).toBe(201);
@@ -114,7 +115,7 @@ describe("Test method GET /api/v1/users endpoint", () => {
   test("Index = User dengan nama tersebut tidak ada -> error", async () => {
     try {
       let response = await request(app).get(`/api/v1/users?search=test`);
-  
+
       // Lakukan asertasi terhadap status kode dan body respons
       expect(response.status).toBe(400);
       expect(response.body).toHaveProperty("status");
@@ -122,5 +123,42 @@ describe("Test method GET /api/v1/users endpoint", () => {
     } catch (err) {
       throw err;
     }
-  });  
+  });
+});
+
+describe("Test method GET by ID /api/v1/users/:id endpoint", () => {
+  test("Show -> Sukses", async () => {
+    try {
+      let { statusCode, body } = await request(app).get(`/api/v1/users/${user.id}`)
+
+      expect(statusCode).toBe(200);
+      expect(body).toHaveProperty("status");
+      expect(body).toHaveProperty("message");
+      expect(body).toHaveProperty("data");
+      expect(body.data).toHaveProperty("id");
+      expect(body.data).toHaveProperty("name");
+      expect(body.data).toHaveProperty("email");
+      expect(body.data).toHaveProperty("password");
+      expect(body.data).toHaveProperty("profile");
+      expect(body.data.profile).toHaveProperty("id");
+      expect(body.data.profile).toHaveProperty("identity_type");
+      expect(body.data.profile).toHaveProperty("identity_number");
+      expect(body.data.profile).toHaveProperty("address");
+      expect(body.data.profile).toHaveProperty("user_id");
+    } catch (err) {
+      throw err;
+    }
+  });
+
+  test("Show = User tidak ditemukan -> error", async () => {
+    try {
+      let { statusCode, body } = await request(app).get(`/api/v1/users/${user.id + 100}`)
+
+      expect(statusCode).toBe(400);
+      expect(body).toHaveProperty("status");
+      expect(body).toHaveProperty("message");
+    } catch (err) {
+      throw err;
+    }
+  });
 });
