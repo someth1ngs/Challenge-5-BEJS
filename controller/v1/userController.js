@@ -7,6 +7,20 @@ module.exports = {
       let { name, email, password, identity_type, identity_number, address } =
         req.body;
 
+      if (
+        !name ||
+        !email ||
+        !password ||
+        !identity_type ||
+        !identity_number ||
+        !address
+      ) {
+        return res.status(404).json({
+          status: false,
+          message: "Input Required",
+        });
+      }
+
       let exist = await prisma.user.findFirst({
         where: { email },
       });
@@ -51,11 +65,11 @@ module.exports = {
         orderBy: { id: "asc" },
       });
 
-      if(users.length === 0){
+      if (users.length === 0) {
         res.status(400).json({
           status: false,
-          message: `Users dengan nama ${search} tidak ada!`
-        })
+          message: `Users dengan nama ${search} tidak ada!`,
+        });
       }
 
       res.status(200).json({
