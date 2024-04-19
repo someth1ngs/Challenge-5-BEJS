@@ -110,4 +110,17 @@ describe("Test method GET /api/v1/users endpoint", () => {
       throw err;
     }
   });
+
+  test("Index = User dengan nama tersebut tidak ada -> error", async () => {
+    try {
+      let response = await request(app).get(`/api/v1/users?search=test`);
+  
+      // Lakukan asertasi terhadap status kode dan body respons
+      expect(response.status).toBe(400);
+      expect(response.body).toHaveProperty("status");
+      expect(response.body).toHaveProperty("message");
+    } catch (err) {
+      throw err;
+    }
+  });  
 });
