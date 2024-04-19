@@ -1,8 +1,8 @@
 openapi: 3.0.1
 info:
-  title: Latihan API DOCUMENTATION
-  description: Latihan untuk challenge 5, dimana penerapan documentation API pada challenge sebelumnya yaitu tentang Bank System
-  version: 1.0.0
+  title: API DOCUMENTATION
+  description: API Documentation for Challenge 5 about Bank System
+  version: 1.0.1
   contact:
     email: adewanggan@gmail.com
 servers:
@@ -81,8 +81,6 @@ paths:
                   message:
                     type: string
                     example: Email already used
-      security:
-        - bearerAuth: []
 
     get:
       tags:
@@ -229,9 +227,6 @@ paths:
                     type: string
                     example: User dengan id 5 tidak dapat ditemukan
 
-      security:
-        - bearerAuth: []
-
     get:
       tags:
         - "Accounts"
@@ -358,9 +353,6 @@ paths:
                       destination_account_id:
                         type: integer
                         example: 5
-
-      security:
-        - bearerAuth: []
     
     get:
       tags:
@@ -450,13 +442,7 @@ paths:
                             example: 2
 
 
-components:
-  securitySchemes:
-    bearerAuth:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
-  
+components:  
   schemas:
     Users:
       type: object
