@@ -57,5 +57,5 @@ model Transaction {
   destinationAccounts    Bank_Account @relation("destinationTransactions", fields: [destination_account_id], references: [id])
   destination_account_id Int
 
-  @@map("transaction")
+  @@map("transactions")
 }

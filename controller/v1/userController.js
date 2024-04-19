@@ -44,13 +44,23 @@ module.exports = {
 
   index: async (req, res, next) => {
     try {
+      let { search } = req.query;
+
       let users = await prisma.user.findMany({
+        where: { name: { contains: search } },
         orderBy: { id: "asc" },
       });
 
+      if(users.length === 0){
+        res.status(400).json({
+          status: false,
+          message: `Users dengan nama ${search} tidak ada!`
+        })
+      }
+
       res.status(200).json({
         status: true,
-        message: "OK",
+        message: "Berhasil mengambil data Users",
         data: users,
       });
     } catch (error) {
