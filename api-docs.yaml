@@ -81,6 +81,20 @@ paths:
                   message:
                     type: string
                     example: Email already used
+                    
+        404:
+          description: Input required
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                    status:
+                      type: boolean
+                      example: false
+                    message:
+                      type: string
+                      example: Input Required
 
     get:
       tags:
