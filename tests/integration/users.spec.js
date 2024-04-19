@@ -15,7 +15,7 @@ describe("Test method POST /api/v1/users endpoint", () => {
 
   beforeAll(async () => {
     // await prisma.transaction.deleteMany();
-    // await prisma.account.deleteMany();
+    await prisma.bank_Account.deleteMany();
     await prisma.profile.deleteMany();
     await prisma.user.deleteMany();
   });

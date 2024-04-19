@@ -303,7 +303,7 @@ paths:
                                   $ref: "#/components/schemas/Profiles"
           
         400:
-          description: success
+          description: id_akun tidak ditemukan
           content:
             application/json:
               schema:
