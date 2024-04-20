@@ -28,17 +28,12 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                name:
-                  type: string
-                  example: Admin
-                email:
-                  type: string
-                  example: admin@gmail.com
-                password:
-                  type: string
-                  example: admin123
+              allOf:
+                - $ref: "#/components/schemas/Auth"
+                - properties:
+                    password:
+                      type: string
+                      example: admin123
 
       responses:
         201:
@@ -58,17 +53,14 @@ paths:
                     type: object
                     properties:
                       user:
-                        type: object
-                        properties:
-                          id:
-                            type: integer
-                            example: 2
-                          name:
-                            type: string
-                            example: admin
-                          email:
-                            type: string
-                            example: admin@gmail.com
+                        allOf:
+                          - type: object
+                            properties:
+                              id:
+                                type: integer
+                                example: 2
+                          - $ref: "#/components/schemas/Auth"
+                          
         400:
           description: Email has already been used!
           content:
@@ -100,7 +92,143 @@ paths:
                     example: input must be required
                   data:
                     example: ~
+
+  /login:
+    post:
+      tags:
+        - "Auth"
+      summary: Login account for Authentication
+      description: Login akan mendapatkan Token untuk akses sistem, masukkan token kedalam Authorize diatas (Sebelah Server)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: admin@gmail.com
+                password:
+                  type: string
+                  example: admin123
+
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: OK
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 2
+                      name:
+                        type: string
+                        example: admin
+                      email:
+                        type: string
+                        example: admin@gmail.com
+                      token:
+                        type: string
+                        example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBtYWlsLmNvbSIsImlhdCI6MTcxMzU4OTEzMH0.kamcTR8kpowKmQByfRfwHdDTP8rEiGz9JyTTWzlB7VM
+                        
+        400:
+          description: Invalid email or password
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Invalid email or password
+                  data:
+                    example: ~
+
+  /authenticate:
+    get:
+      tags:
+        - "Auth"
+      summary: Authentication with Token
+      description: Gunakan Token yang telah didapat dari Login
+      
+      responses:
+        200:
+          description: Authenticated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: OK
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 2
+                      name:
+                        type: string
+                        example: admin
+                      email:
+                        type: string
+                        example: admin@gmail.com
         
+        400:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Token not provided
+                  data:
+                    example: ~
+
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example:
+                    - jwt malformed
+                    - Invalid algorithm
+                    - Invalid token
+                  data:
+                    example: ~
+      security:
+        - bearerAuth: []
 
 
   /users:
@@ -584,7 +712,13 @@ paths:
                     type: string
                     example: Transaksi tidak ditemukan dengan id Transaksi
 
-components:  
+components:
+  securitySchemes:
+    bearerAuth:       
+      type: http
+      scheme: bearer       
+      bearerFormat: JWT
+
   schemas:
     Users:
       type: object
@@ -655,3 +789,13 @@ components:
         destination_account_id:
           type: integer
           example: 2
+
+    Auth:
+      type: object
+      properties: 
+        name:
+          type: string
+          example: admin
+        email:
+          type: string
+          example: admin@gmail.com

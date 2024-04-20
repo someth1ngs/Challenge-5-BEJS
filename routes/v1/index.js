@@ -10,7 +10,7 @@ const { JWT_SECRET_KEY } = process.env;
 let restrict = (req, res, next) => {
   let { authorization } = req.headers;
   if (!authorization || !authorization.split(" ")[1]) {
-    res.status(401).json({
+    res.status(400).json({
       status: false,
       message: "Token not provided",
       data: null,
@@ -66,8 +66,8 @@ router.get("/api/v1/transactions", transactionsController.index);
 router.get("/api/v1/transactions/:id", transactionsController.show);
 
 // API Auth //
-router.post("/auth/register", authController.register);
-router.post("/auth/login", authController.login);
-router.get("/auth/authenticate", restrict, authController.auth);
+router.post("/api/v1/register", authController.register);
+router.post("/api/v1/login", authController.login);
+router.get("/api/v1/authenticate", restrict, authController.auth);
 
 module.exports = router;

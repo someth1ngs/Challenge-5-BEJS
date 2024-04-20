@@ -48,7 +48,7 @@ module.exports = {
       let { email, password } = req.body;
 
       let user = await prisma.user.findFirst({ where: { email } });
-      if (!user) {
+      if (!user || !email || !password) {
         return res.status(400).json({
           status: false,
           message: "Invalid email or password",

@@ -72,13 +72,13 @@ POST http://localhost:3000/auth/register
 Content-Type: application/json
 
 {
-    "name": "admin",
-    "email": "admin@mail.com",
-    "password": "admin123"
+    "name": "test1",
+    "email": "test1@mail.com",
+    "password": "test1123"
 }
 
 ### POST - LOGIN
-POST http://localhost:3000/auth/login
+POST http://localhost:3000/api/v1/login
 Content-Type: application/json
 
 {
@@ -87,7 +87,7 @@ Content-Type: application/json
 }
 
 ### GET - Authenticate
-GET http://localhost:3000/auth/authenticate
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBtYWlsLmNvbSIsImlhdCI6MTcxMzU4NDUxOX0.bnOLM8Stn73SZGF_STJHmsM2z5_JpsKdOhiQ6Evk-0Q
+GET http://localhost:3000/api/v1/authenticate
+Authorization: Bearer eyJhbGsiOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBtYWlsLmNvbSIsImlhdCI6MTcxMzU4NDUxOX0.bnOLM8Stn73SZGF_STJHmsM2z5_JpsKdOhiQ6Evk-0Q
 
 ############################
