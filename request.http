@@ -63,3 +63,31 @@ GET http://localhost:3000/api/v1/transactions
 GET http://localhost:3000/api/v1/transactions/13
 
 ############################
+
+
+######### API Auth #########
+
+### POST - REGISTER
+POST http://localhost:3000/auth/register
+Content-Type: application/json
+
+{
+    "name": "admin",
+    "email": "admin@mail.com",
+    "password": "admin123"
+}
+
+### POST - LOGIN
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+    "email": "admin@mail.com",
+    "password": "admin123"
+}
+
+### GET - Authenticate
+GET http://localhost:3000/auth/authenticate
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzksIm5hbWUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AbWFpbC5jb20iLCJpYXQiOjE3MTM1ODM5MTR9.IIFBJ06hGxWC6AWbFRECqBFr7BZi45wDoOXpbAiJZPM
+
+############################
