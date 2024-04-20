@@ -77,6 +77,8 @@ describe("Test method POST /api/v1/auth/login endpoint", () => {
         .post("/api/v1/auth/login")
         .send({ email, password });
 
+      token = body.data.token;
+
       expect(statusCode).toBe(200);
       expect(body).toHaveProperty("status");
       expect(body).toHaveProperty("message");
@@ -92,33 +94,83 @@ describe("Test method POST /api/v1/auth/login endpoint", () => {
 
   test("Login = Invalid email or password -> error", async () => {
     try {
-        email = "test"
-        password = "inibukanpassword"
-        let { statusCode, body } = await request(app)
-          .post("/api/v1/auth/login")
-          .send({ email, password });
-  
-        expect(statusCode).toBe(400);
-        expect(body).toHaveProperty("status");
-        expect(body).toHaveProperty("message");
-        expect(body).toHaveProperty("data");
-      } catch (err) {
-        throw err;
-      }
-  })
+      email = "test";
+      password = "inibukanpassword";
+      let { statusCode, body } = await request(app)
+        .post("/api/v1/auth/login")
+        .send({ email, password });
+
+      expect(statusCode).toBe(400);
+      expect(body).toHaveProperty("status");
+      expect(body).toHaveProperty("message");
+      expect(body).toHaveProperty("data");
+    } catch (err) {
+      throw err;
+    }
+  });
 
   test("Login = Invalid email or password (No Input) -> error", async () => {
     try {
-        let { statusCode, body } = await request(app)
-          .post("/api/v1/auth/login")
-          .send({});
-  
-        expect(statusCode).toBe(400);
-        expect(body).toHaveProperty("status");
-        expect(body).toHaveProperty("message");
-        expect(body).toHaveProperty("data");
-      } catch (err) {
-        throw err;
-      }
+      let { statusCode, body } = await request(app)
+        .post("/api/v1/auth/login")
+        .send({});
+
+      expect(statusCode).toBe(400);
+      expect(body).toHaveProperty("status");
+      expect(body).toHaveProperty("message");
+      expect(body).toHaveProperty("data");
+    } catch (err) {
+      throw err;
+    }
+  });
+});
+
+describe("Test method GET /api/v1/auth/authenticate endpoint", () => {
+  test("Authenticate -> Sukses", async () => {
+    try {
+      let { statusCode, body } = await request(app)
+        .get("/api/v1/auth/authenticate")
+        .set("Authorization", `Bearer ${token}`);
+
+      expect(statusCode).toBe(200);
+      expect(body).toHaveProperty("status");
+      expect(body).toHaveProperty("message");
+      expect(body).toHaveProperty("data");
+      expect(body.data).toHaveProperty("id");
+      expect(body.data).toHaveProperty("name");
+      expect(body.data).toHaveProperty("email");
+    } catch (err) {
+      throw err;
+    }
+  });
+
+  test("Authenticate = Token not provided -> erro", async () => {
+    try {
+      let { statusCode, body } = await request(app)
+        .get("/api/v1/auth/authenticate")
+        .set("Authorization", `Bearer `);
+
+      expect(statusCode).toBe(400);
+      expect(body).toHaveProperty("status");
+      expect(body).toHaveProperty("message");
+      expect(body).toHaveProperty("data");
+    } catch (err) {
+      throw err;
+    }
+  })
+
+  test("Authenticate = err.message (banyak macam error) -> error", async () => {
+    try {
+      let { statusCode, body } = await request(app)
+        .get("/api/v1/auth/authenticate")
+        .set("Authorization", `Bearer 1`);
+
+      expect(statusCode).toBe(401);
+      expect(body).toHaveProperty("status");
+      expect(body).toHaveProperty("message");
+      expect(body).toHaveProperty("data");
+    } catch (err) {
+      throw err;
+    }
   })
 });
