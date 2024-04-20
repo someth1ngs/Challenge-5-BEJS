@@ -66,8 +66,8 @@ router.get("/api/v1/transactions", transactionsController.index);
 router.get("/api/v1/transactions/:id", transactionsController.show);
 
 // API Auth //
-router.post("/api/v1/register", authController.register);
-router.post("/api/v1/login", authController.login);
-router.get("/api/v1/authenticate", restrict, authController.auth);
+router.post("/api/v1/auth/register", authController.register);
+router.post("/api/v1/auth/login", authController.login);
+router.get("/api/v1/auth/authenticate", restrict, authController.auth);
 
 module.exports = router;

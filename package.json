@@ -9,7 +9,8 @@
     "test:users": "jest tests/integration/users.spec.js",
     "test:accounts": "jest tests/integration/accounts.spec.js",
     "test:transactions": "jest tests/integration/transactions.spec.js",
-    "test:sequential": "npm run test:users && npm run test:accounts && npm run test:transactions"
+    "test:auth": "jest tests/integration/auth.spec.js",
+    "test:sequential": "npm run test:users && npm run test:accounts && npm run test:transactions && npm run test:auth"
   },
   "dependencies": {
     "@prisma/client": "^5.12.1",

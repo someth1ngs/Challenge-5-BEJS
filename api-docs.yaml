@@ -17,7 +17,7 @@ tags:
   - name: Transactions
     description: Everything about Transactions
 paths:
-  /register:
+  /auth/register:
     post:
       tags:
         - "Auth"
@@ -93,7 +93,7 @@ paths:
                   data:
                     example: ~
 
-  /login:
+  /auth/login:
     post:
       tags:
         - "Auth"
@@ -159,7 +159,7 @@ paths:
                   data:
                     example: ~
 
-  /authenticate:
+  /auth/authenticate:
     get:
       tags:
         - "Auth"

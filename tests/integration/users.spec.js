@@ -74,8 +74,6 @@ describe("Test method POST /api/v1/users endpoint", () => {
 
   test("Store = Email Already Used -> error", async () => {
     try {
-      let email = "dewangga@gmail.com";
-
       let { statusCode, body } = await request(app).post("/api/v1/users").send({
         name,
         email,
