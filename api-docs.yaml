@@ -8,6 +8,8 @@ info:
 servers:
   - url: http://localhost:3000/api/v1
 tags:
+  - name: Auth
+    description: Everything about Authentication
   - name: Users
     description: Everything about your Users
   - name: Accounts
@@ -15,6 +17,92 @@ tags:
   - name: Transactions
     description: Everything about Transactions
 paths:
+  /register:
+    post:
+      tags:
+        - "Auth"
+      summary: register new account for Authentication
+      description: mendaftarkan account baru kedalam database untuk sebuah akses
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Admin
+                email:
+                  type: string
+                  example: admin@gmail.com
+                password:
+                  type: string
+                  example: admin123
+
+      responses:
+        201:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Success
+                  data:
+                    type: object
+                    properties:
+                      user:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                            example: 2
+                          name:
+                            type: string
+                            example: admin
+                          email:
+                            type: string
+                            example: admin@gmail.com
+        400:
+          description: Email has already been used!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: email has already been used!
+                  data:
+                    example: ~
+
+        401:
+          description: Input must be required
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: input must be required
+                  data:
+                    example: ~
+        
+
+
   /users:
     post:
       tags:

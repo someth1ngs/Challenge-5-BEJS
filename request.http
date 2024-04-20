@@ -88,6 +88,6 @@ Content-Type: application/json
 
 ### GET - Authenticate
 GET http://localhost:3000/auth/authenticate
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzksIm5hbWUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AbWFpbC5jb20iLCJpYXQiOjE3MTM1ODM5MTR9.IIFBJ06hGxWC6AWbFRECqBFr7BZi45wDoOXpbAiJZPM
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBtYWlsLmNvbSIsImlhdCI6MTcxMzU4NDUxOX0.bnOLM8Stn73SZGF_STJHmsM2z5_JpsKdOhiQ6Evk-0Q
 
 ############################

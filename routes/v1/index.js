@@ -12,13 +12,13 @@ let restrict = (req, res, next) => {
   if (!authorization || !authorization.split(" ")[1]) {
     res.status(401).json({
       status: false,
-      message: "token not provided",
+      message: "Token not provided",
       data: null,
     });
   }
 
   let token = authorization.split(" ")[1];
-  let user = jwt.verify(token, JWT_SECRET_KEY, (err, user) => {
+  jwt.verify(token, JWT_SECRET_KEY, (err, user) => {
     if (err) {
       res.status(401).json({
         status: false,
@@ -26,14 +26,9 @@ let restrict = (req, res, next) => {
         data: null,
       });
     }
-    delete user.iat;
+    delete user.iat
     req.user = user;
-    next();
   });
-
-  console.log("req.user: ", req.user);
-
-  console.log("middleware berjalan dengan baik");
   next();
 };
 

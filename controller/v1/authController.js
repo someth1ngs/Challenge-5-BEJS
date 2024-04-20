@@ -80,7 +80,7 @@ module.exports = {
 
   auth: async (req, res, next) => {
     try {
-      res.json({
+      return res.status(200).json({
         status: true,
         message: "OK",
         data: req.user,
